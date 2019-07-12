@@ -22,9 +22,6 @@ class EditViewController: UIViewController, AVAudioRecorderDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        
-        
     }
 
     @IBAction func recordButtonPressed(_ sender: Any) {
@@ -83,6 +80,7 @@ class EditViewController: UIViewController, AVAudioRecorderDelegate {
         
         // Save the data to coredata
         Persistence.saveContext()
+        TaskDataClass.sharedInstance.appendNewTask(task: task)
         
 //        let _ = navigationController?.popViewController(animated: true)
     }
