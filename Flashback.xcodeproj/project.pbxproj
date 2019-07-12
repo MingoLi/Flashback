@@ -14,6 +14,10 @@
 		DA3F81B122CEDC8D00EA597F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA3F81B022CEDC8D00EA597F /* Assets.xcassets */; };
 		DA3F81B422CEDC8D00EA597F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA3F81B222CEDC8D00EA597F /* LaunchScreen.storyboard */; };
 		DAF85AE522D2F58D00AF3FE2 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF85AE422D2F58C00AF3FE2 /* Constant.swift */; };
+		DAF85AE922D531F700AF3FE2 /* Flashback.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DAF85AE722D531F700AF3FE2 /* Flashback.xcdatamodeld */; };
+		DAF85AEB22D532EF00AF3FE2 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF85AEA22D532EF00AF3FE2 /* Persistence.swift */; };
+		DAF85AEF22D7DAEE00AF3FE2 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF85AEE22D7DAEE00AF3FE2 /* TaskTableViewCell.swift */; };
+		DAF85AF122D8146900AF3FE2 /* DataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF85AF022D8146900AF3FE2 /* DataClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		DA3F81B322CEDC8D00EA597F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA3F81B522CEDC8D00EA597F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAF85AE422D2F58C00AF3FE2 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		DAF85AE822D531F700AF3FE2 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		DAF85AEA22D532EF00AF3FE2 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		DAF85AEE22D7DAEE00AF3FE2 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
+		DAF85AF022D8146900AF3FE2 /* DataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataClass.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +66,28 @@
 		DA3F81A622CEDC8C00EA597F /* Flashback */ = {
 			isa = PBXGroup;
 			children = (
+				DAF85AE622D4205400AF3FE2 /* Persistence */,
 				DA3F81A722CEDC8C00EA597F /* AppDelegate.swift */,
 				DA3F81A922CEDC8C00EA597F /* EditViewController.swift */,
 				DA3F81AB22CEDC8C00EA597F /* SecondViewController.swift */,
+				DAF85AEE22D7DAEE00AF3FE2 /* TaskTableViewCell.swift */,
 				DA3F81AD22CEDC8C00EA597F /* Main.storyboard */,
 				DA3F81B022CEDC8D00EA597F /* Assets.xcassets */,
 				DA3F81B222CEDC8D00EA597F /* LaunchScreen.storyboard */,
 				DA3F81B522CEDC8D00EA597F /* Info.plist */,
-				DAF85AE422D2F58C00AF3FE2 /* Constant.swift */,
 			);
 			path = Flashback;
+			sourceTree = "<group>";
+		};
+		DAF85AE622D4205400AF3FE2 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				DAF85AE422D2F58C00AF3FE2 /* Constant.swift */,
+				DAF85AE722D531F700AF3FE2 /* Flashback.xcdatamodeld */,
+				DAF85AEA22D532EF00AF3FE2 /* Persistence.swift */,
+				DAF85AF022D8146900AF3FE2 /* DataClass.swift */,
+			);
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,8 +161,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAF85AEF22D7DAEE00AF3FE2 /* TaskTableViewCell.swift in Sources */,
 				DA3F81AC22CEDC8C00EA597F /* SecondViewController.swift in Sources */,
+				DAF85AF122D8146900AF3FE2 /* DataClass.swift in Sources */,
 				DA3F81A822CEDC8C00EA597F /* AppDelegate.swift in Sources */,
+				DAF85AE922D531F700AF3FE2 /* Flashback.xcdatamodeld in Sources */,
+				DAF85AEB22D532EF00AF3FE2 /* Persistence.swift in Sources */,
 				DA3F81AA22CEDC8C00EA597F /* EditViewController.swift in Sources */,
 				DAF85AE522D2F58D00AF3FE2 /* Constant.swift in Sources */,
 			);
@@ -344,6 +368,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DAF85AE722D531F700AF3FE2 /* Flashback.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DAF85AE822D531F700AF3FE2 /* Model.xcdatamodel */,
+			);
+			currentVersion = DAF85AE822D531F700AF3FE2 /* Model.xcdatamodel */;
+			path = Flashback.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DA3F819C22CEDC8C00EA597F /* Project object */;
 }

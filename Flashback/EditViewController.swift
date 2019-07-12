@@ -8,17 +8,23 @@
 
 import UIKit
 import AVFoundation
+import CoreData
 
 class EditViewController: UIViewController, AVAudioRecorderDelegate {
 
     @IBOutlet weak var recordingLabel: UILabel!
     @IBOutlet weak var recordButton: UIButton!
     
+    @IBOutlet weak var taskTextField: UITextField!
+    
     var audioRecorder: AVAudioRecorder!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        
+        
     }
 
     @IBAction func recordButtonPressed(_ sender: Any) {
@@ -34,6 +40,8 @@ class EditViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
+    //   TODO: add clear record button
+    
     func startRecord() {
         print("record was called")
         
@@ -41,7 +49,6 @@ class EditViewController: UIViewController, AVAudioRecorderDelegate {
         let recordingName = "recordedVoice.wav"
         let pathArray = [dirPath, recordingName]
         let filePath = URL(string: pathArray.joined(separator: "/"))
-//        print(filePath)
         
         try! AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: [])
         
@@ -54,6 +61,7 @@ class EditViewController: UIViewController, AVAudioRecorderDelegate {
     
     func stopRecord() {
         print("stopRecord triggered")
+        // TODO: should I resume the record or clear and restart
         audioRecorder.stop()
         try! AVAudioSession.sharedInstance().setActive(false)
     }
@@ -61,11 +69,24 @@ class EditViewController: UIViewController, AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag {
             print("audio finish recording")
-            print(audioRecorder.url)
         } else {
             print("record was not sucessful")
         }
     }
+    
+    @IBAction func onSavePressed(_ sender: Any) {
+        print("save pressed")
+        
+        let task = Task(context: Persistence.context)
+        task.content = taskTextField.text!
+        task.date = Date()
+        
+        // Save the data to coredata
+        Persistence.saveContext()
+        
+//        let _ = navigationController?.popViewController(animated: true)
+    }
+    
     
 }
 
