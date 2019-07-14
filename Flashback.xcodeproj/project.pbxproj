@@ -66,7 +66,9 @@
 		DA3F81A622CEDC8C00EA597F /* Flashback */ = {
 			isa = PBXGroup;
 			children = (
-				DAF85AE622D4205400AF3FE2 /* Persistence */,
+				DAF85AF522DB3D7100AF3FE2 /* Controller */,
+				DAF85AF422DB3D6900AF3FE2 /* View */,
+				DAF85AE622D4205400AF3FE2 /* Model */,
 				DA3F81A722CEDC8C00EA597F /* AppDelegate.swift */,
 				DA3F81A922CEDC8C00EA597F /* EditViewController.swift */,
 				DA3F81AB22CEDC8C00EA597F /* SecondViewController.swift */,
@@ -79,7 +81,7 @@
 			path = Flashback;
 			sourceTree = "<group>";
 		};
-		DAF85AE622D4205400AF3FE2 /* Persistence */ = {
+		DAF85AE622D4205400AF3FE2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				DAF85AE422D2F58C00AF3FE2 /* Constant.swift */,
@@ -87,7 +89,21 @@
 				DAF85AEA22D532EF00AF3FE2 /* Persistence.swift */,
 				DAF85AF022D8146900AF3FE2 /* DataClass.swift */,
 			);
-			path = Persistence;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DAF85AF422DB3D6900AF3FE2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DAF85AF522DB3D7100AF3FE2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

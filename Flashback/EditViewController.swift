@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import CoreData
+import Speech
 
 class EditViewController: UIViewController, AVAudioRecorderDelegate {
 
@@ -23,11 +24,13 @@ class EditViewController: UIViewController, AVAudioRecorderDelegate {
     @IBOutlet weak var catPurple: UIButton!
     var buttonArray: [UIButton]!
     
-    var audioRecorder: AVAudioRecorder!
-    
     @IBOutlet weak var recordingLabel: UILabel!
     @IBOutlet weak var recordButton: UIButton!
     
+    var audioRecorder: AVAudioRecorder!
+    var audioPlayer: AVAudioPlayer!
+    var task: Task!
+    var uuid: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +38,14 @@ class EditViewController: UIViewController, AVAudioRecorderDelegate {
         // Init button group array
         buttonArray = [catDefault, catGreen, catOrange, catRed,  catBlue, catPurple]
         
+        // The Task Object will be save to database
+        task = Task(context: Persistence.context)
+        uuid = UUID().uuidString
+        task.id = uuid
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 
     @IBAction func recordButtonPressed(_ sender: Any) {
@@ -55,14 +66,19 @@ class EditViewController: UIViewController, AVAudioRecorderDelegate {
     func startRecord() {
         print("record was called")
         
-        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let recordingName = "recordedVoice.wav"
-        let pathArray = [dirPath, recordingName]
-        let filePath = URL(string: pathArray.joined(separator: "/"))
+//        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let dirPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileName = uuid + ".m4a"
+//        let pathArray = [dirPath, recordingName]
+//        let filePath = URL(string: pathArray.joined(separator: "/"))
+        
+        let filePath = dirPath.appendingPathComponent(fileName)
+        task.audioURL = filePath
+        let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
         
         try! AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: [])
         
-        try! audioRecorder = AVAudioRecorder(url: filePath!, settings: [:])
+        try! audioRecorder = AVAudioRecorder(url: filePath, settings: settings)
         audioRecorder.delegate = self
         audioRecorder.isMeteringEnabled = true
         audioRecorder.prepareToRecord()
@@ -76,9 +92,46 @@ class EditViewController: UIViewController, AVAudioRecorderDelegate {
         try! AVAudioSession.sharedInstance().setActive(false)
     }
     
+    func requestSpeechAuth() {
+        SFSpeechRecognizer.requestAuthorization{ authStatus in
+            if authStatus == SFSpeechRecognizerAuthorizationStatus.authorized {
+                
+                do {
+                    self.audioPlayer = try AVAudioPlayer(contentsOf: self.task!.audioURL!)
+//                    let audioPlayer: AVAudioPlayer! = sound
+                    self.audioPlayer.play()
+                    print("finish play")
+                } catch {
+                    print("error")
+                }
+
+                let recognizer = SFSpeechRecognizer()
+//                print(self.task!.audioURL!)
+                let request = SFSpeechURLRecognitionRequest(url: self.task!.audioURL!)
+                recognizer?.recognitionTask(with: request) { (result, error) in
+                    guard let result = result else {
+                        // Recognition failed, so check error for details and handle it
+                        print("recognization failed")
+                        print(error)
+                        // TODO: add alert to user not recognize
+                        return
+                    }
+                    
+                    // Print the speech that has been recognized so far
+                    if result.isFinal {
+                        print("Speech in the file is \(result.bestTranscription.formattedString)")
+                    }
+                }
+                
+            }
+        }
+    }
+    
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag {
             print("audio finish recording")
+            requestSpeechAuth()
+            
         } else {
             print("record was not sucessful")
         }
@@ -87,7 +140,6 @@ class EditViewController: UIViewController, AVAudioRecorderDelegate {
     @IBAction func onSavePressed(_ sender: Any) {
         print("save pressed")
         
-        let task = Task(context: Persistence.context)
         task.content = taskTextField.text!
         task.date = Date()
         task.category = whichCategory()
@@ -98,6 +150,9 @@ class EditViewController: UIViewController, AVAudioRecorderDelegate {
         
 //        let _ = navigationController?.popViewController(animated: true)
     }
+    
+    
+    
     
     // Button group actions
     func unselectAllButtons() {

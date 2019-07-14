@@ -34,15 +34,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="78k-xd-HXJ">
-                                <rect key="frame" x="317" y="730" width="34" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Save"/>
-                                <connections>
-                                    <action selector="onSavePressed:" destination="9pv-A4-QxB" eventType="touchUpInside" id="z5I-YI-6CR"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" keyboardDismissMode="interactive" text="Lay down some shit..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xay-sT-uDm">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" keyboardDismissMode="onDrag" text="Lay down some shit..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xay-sT-uDm">
                                 <rect key="frame" x="30" y="106" width="336" height="176"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -92,6 +84,14 @@
                                 <state key="highlighted" title="S"/>
                                 <connections>
                                     <action selector="onCatDefaultPressed:" destination="9pv-A4-QxB" eventType="touchUpInside" id="MCD-RS-lty"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="78k-xd-HXJ">
+                                <rect key="frame" x="315" y="662" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="onSavePressed:" destination="9pv-A4-QxB" eventType="touchUpInside" id="z5I-YI-6CR"/>
                                 </connections>
                             </button>
                         </subviews>
