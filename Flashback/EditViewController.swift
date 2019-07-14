@@ -12,16 +12,29 @@ import CoreData
 
 class EditViewController: UIViewController, AVAudioRecorderDelegate {
 
+    @IBOutlet weak var taskTextField: UITextView!
+    
+    // Button Group used for selecting category
+    @IBOutlet weak var catDefault: UIButton!
+    @IBOutlet weak var catGreen: UIButton!
+    @IBOutlet weak var catOrange: UIButton!
+    @IBOutlet weak var catRed: UIButton!
+    @IBOutlet weak var catBlue: UIButton!
+    @IBOutlet weak var catPurple: UIButton!
+    var buttonArray: [UIButton]!
+    
+    var audioRecorder: AVAudioRecorder!
+    
     @IBOutlet weak var recordingLabel: UILabel!
     @IBOutlet weak var recordButton: UIButton!
     
-    @IBOutlet weak var taskTextField: UITextField!
-    
-    var audioRecorder: AVAudioRecorder!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        // Init button group array
+        buttonArray = [catDefault, catGreen, catOrange, catRed,  catBlue, catPurple]
+        
     }
 
     @IBAction func recordButtonPressed(_ sender: Any) {
@@ -77,6 +90,7 @@ class EditViewController: UIViewController, AVAudioRecorderDelegate {
         let task = Task(context: Persistence.context)
         task.content = taskTextField.text!
         task.date = Date()
+        task.category = whichCategory()
         
         // Save the data to coredata
         Persistence.saveContext()
@@ -85,6 +99,39 @@ class EditViewController: UIViewController, AVAudioRecorderDelegate {
 //        let _ = navigationController?.popViewController(animated: true)
     }
     
+    // Button group actions
+    func unselectAllButtons() {
+        for b in buttonArray {
+            b.isSelected = false
+            // TODO: trigger animation if necessary
+        }
+    }
+    
+    func whichCategory() -> Int16 {
+        for (i, b) in buttonArray.enumerated() {
+            if b.isSelected {
+                return TaskCategory.allCases[i].rawValue
+            }
+        }
+        return TaskCategory.defaultCat.rawValue
+    }
+    
+    @IBAction func onCatDefaultPressed(_ sender: UIButton) {
+        print("default pressed")
+        if !sender.isSelected {
+            unselectAllButtons()
+            catDefault.isSelected = true
+        }
+         
+    }
+    
+    @IBAction func onCatGreenPressed(_ sender: UIButton) {
+        print("green pressed")
+        if !sender.isSelected {
+            unselectAllButtons()
+            catGreen.isSelected = true
+        }
+    }
     
 }
 

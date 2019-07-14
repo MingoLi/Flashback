@@ -12,6 +12,7 @@ class TaskTableViewCell: UITableViewCell {
 
     
     
+    @IBOutlet weak var taskView: UIView!
     @IBOutlet weak var taskTextLabel: UILabel!
     //    override func awakeFromNib() {
 //        super.awakeFromNib()
@@ -26,6 +27,16 @@ class TaskTableViewCell: UITableViewCell {
     
     func setTask(task: Task) {
         taskTextLabel.text = task.content
+        switch task.category {
+        case TaskCategory.defaultCat.rawValue: taskView.backgroundColor = UIColor.gray
+        case TaskCategory.green.rawValue: taskView.backgroundColor = UIColor.green
+        case TaskCategory.orange.rawValue: taskView.backgroundColor = UIColor.orange
+        case TaskCategory.red.rawValue: taskView.backgroundColor = UIColor.red
+        case TaskCategory.blue.rawValue: taskView.backgroundColor = UIColor.blue
+        case TaskCategory.purple.rawValue: taskView.backgroundColor = UIColor.green
+        default: taskView.backgroundColor = UIColor.gray
+        }
+        
     }
 
 }
